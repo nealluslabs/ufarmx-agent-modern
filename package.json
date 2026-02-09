@@ -1,0 +1,55 @@
+{
+  "name": "ufarmx-business-module",
+  "version": "1.0.0",
+  "description": "This is a module for retailers to manage their farmers",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/index.js",
+    "server": "nodemon backend/index.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "data:import": "node backend/seeder",
+    "data:destroy": "node backend/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "keywords": [
+    "Ecommerce",
+    "Tech"
+  ],
+  "author": "Dagogo Clinton Uranta",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/react": "^11.13.5",
+    "@emotion/styled": "^11.13.5",
+    "@mui/material": "^6.1.9",
+    "@mui/x-date-pickers": "^7.22.3",
+    "apexcharts": "^3.54.0",
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.11.0",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "googleapis": "^71.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "localforage": "^1.10.0",
+    "mongoose": "^5.13.22",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemailer": "^7.0.6",
+    "react-apexcharts": "^1.4.1",
+    "react-datepicker": "^4.7.0",
+    "react-device-detect": "^2.2.3",
+    "react-phone-input-2": "^2.15.1",
+    "xoauth2": "^1.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.7"
+  }
+}
