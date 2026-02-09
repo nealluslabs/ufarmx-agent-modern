@@ -44,6 +44,8 @@ export default function FormsPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  const { agentType } = useSelector((state) => state.group);
+
   const { 
    
      currentResponsesToDisplay,
@@ -95,27 +97,81 @@ setTimeout(()=>{
 
 
   useEffect(() => {
+  
+    if(agentType && agentType === "Farmer"){
     /*THIS USE EFFECT IS IMPORTANT TO ASSGIN AN ID SO MUI DATA GRID WILL ACCEPT THE DATA */
-  const forcedId =  []
+    const keywords = [
+      'farmer',
+      'agriculteur',
+      'field',
+      'animal',
+      'velingara',
+      'crop',
+      'container',
+      'conteneur',
+      'cultures',
+      'ufarmx',
+    ];
+ 
+    const forcedId =  []
     allForms.forEach((item,index)=>{
       //console.log("Names are ", item);
-    if(item.title === "Farmer Credit Analysis") {
+   
+if (
+  keywords.some((keyword) =>
+    item.title.toLowerCase().includes(keyword)
+  ))
+      
+      {
       forcedId.push({
         ...item,
         id:item.id ? item.id: item._id ? item._id: item.OriginalResponseId ? item.OriginalResponseId:item.name ? item.name: Math.random()
       })
 
 
-      forcedId.push({
-        ...item,
-        title:"Farmer Credit Analysis II",
-        id: Math.random()/*item.id ? item.id: item._id ? item._id: item.OriginalResponseId ? item.OriginalResponseId:item.name ? item.name: Math.random()*/
-      })
+    
 
     }
   })
 
   setResponsesFromDB(forcedId)
+}
+else{
+
+
+
+
+  const keywords = [
+    'retailer',
+   
+  ];
+
+  const forcedId =  []
+  allForms.forEach((item,index)=>{
+    //console.log("Names are ", item);
+ 
+if (
+keywords.some((keyword) =>
+  item.title.toLowerCase().includes(keyword)
+))
+    
+    {
+    forcedId.push({
+      ...item,
+      id:item.id ? item.id: item._id ? item._id: item.OriginalResponseId ? item.OriginalResponseId:item.name ? item.name: Math.random()
+    })
+
+
+  
+
+  }
+})
+
+
+setResponsesFromDB(forcedId)
+}
+
+ 
 
  // console.log("WHAT WE ARE PRESENTING FOR FORMS-->",allForms);
  // console.log("ALL FORMS-->",allForms);
