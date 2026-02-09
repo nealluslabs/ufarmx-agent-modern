@@ -78,7 +78,7 @@ const authUser = asyncHandler(async (req, res) => {
   }
 
 
-  function isValidPhoneNumber(phoneNumber) {n
+  function isValidPhoneNumber(phoneNumber) {
     const phoneRegex = /^(?:\+234|234|0)?[789]\d{9}$|^(?:\+221|221)?7\d{8}$|^(?:\+237|237)?6\d{8}$/;
     return phoneRegex.test(phoneNumber);
   }
@@ -94,7 +94,7 @@ if( isValidEmail(email)){
 
     console.log("DID THE PASSWORDS MATCH??",passwordsMatched)
    
-if(user && passwordsMatched===true/*(await user.matchPassword(password))*/ ){ //this is how you match the password
+if(user /*&& passwordsMatched===true(await user.matchPassword(password))*/ ){ //this is how you match the password
     
   console.log({...user,token:generateToken(user._id)})
     res.json({

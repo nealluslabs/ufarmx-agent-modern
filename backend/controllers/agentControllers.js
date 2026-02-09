@@ -15,22 +15,15 @@ const getAgents = asyncHandler(async (req,res)=>{
   const pageSize = 10 //i recommend 4 per page,cuz of whats in the frontend
      const page = Number(req.query.pageNumber) || 1
 
- const vendorName = req.query.vendorName? req.query.vendorName:" "  //if your vendorName logic is messing up, come and change it to resemble that of keyword, with the empty object
+  //if your vendorName logic is messing up, come and change it to resemble that of keyword, with the empty object
 let count;
 let agents;
 
-  const keyword = req.query.keyword ? {
-   name: {
-     $regex: req.query.keyword,
-     $options:'i' // it means case insensitive 
-   }
- 
- }:{}
  
  // I am instructing my getAgents controller to tune it's search, based on if there's a vendor name or not 
 
 count = await Agent.countDocuments(),
-agents = await Agent.find().limit(pageSize).skip(pageSize *(page-1))
+agents = await Agent.find()
 
 console.log("agents is --->",agents)
 
