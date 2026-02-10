@@ -415,7 +415,7 @@ const updateProduce = asyncHandler(async (req,res)=>{
 //@desc  Fetch all retailers in one go
 //@route GET /api/retailers/all
 //@access Public
-const getretailersForOneAgent = asyncHandler(async (req,res)=>{
+const getRetailersForOneAgent = asyncHandler(async (req,res)=>{
 
   res.header("Access-Control-Allow-Origin","*")
   const pageSize = 10 //i recommend 4 per page,cuz of whats in the frontend
