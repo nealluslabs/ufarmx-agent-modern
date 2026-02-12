@@ -94,7 +94,7 @@ const columns =  !isMobile? [
     return <div style={{fontSize:"1rem"}}>{params.row.cropType}</div>;
   },  },*/
   { field: 'location', headerName: 'Location',  width: 420,height:450, renderCell: (params) => {
-    return <div style={{fontSize:"1rem"}}> {params.row.locationName && params.row.locationName.slice(0,35)+"..."}</div>;
+    return <div style={{fontSize:"1rem"}}> {params.row.location?params.row.location && params.row.location :params.row.locationName && params.row.locationName.slice(0,35)+"..."}</div>;
   }, },
   { field: 'onboardDate', headerName: 'Date', width: 180,height:450, renderCell: (params) => {
     return <div style={{fontSize:"1rem"}}>{params.row.onboardDate && params.row.onboardDate}</div>;

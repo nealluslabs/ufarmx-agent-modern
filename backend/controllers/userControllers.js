@@ -96,9 +96,9 @@ if( isValidEmail(email)){
    
 if(user /*&& passwordsMatched===true(await user.matchPassword(password))*/ ){ //this is how you match the password
     
-  console.log({...user,token:generateToken(user._id)})
+  console.log('WHY DO EMAIL USERS HAVE _DOC ?',{...user,...user._doc,token:generateToken(user._id)})
     res.json({
-      user:{...user,token: generateToken(user._id),}
+      user:{...user,...user._doc,token: generateToken(user._id),}
     })
  
   }else{

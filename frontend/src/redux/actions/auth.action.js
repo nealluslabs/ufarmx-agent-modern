@@ -5,7 +5,7 @@ import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup, saveIsAgent,saveAgentType, saveIsFarmer, saveIsAdmin,saveIsSuperAdmin } from '../reducers/group.slice';
 //import { clearPitch } from '../reducers/pitch.slice';
 import baseUrl from './baseUrl';
-import { fetchAllFarmers,fetchAllFarmersForOneRetailer, fetchAllResponses,fetchAgentByPhone,fetchFarmerByPhone, fetchAllForms, fetchAllAdmins, fetchFarmersForOneAgent, fetchAllResponsesForOneAgent, fetchAllFarmerProduce,fetchAllRequests, fetchAllRetailerProducts, fetchAllRetailers } from './group.action';
+import { fetchAllFarmers,fetchAllFarmersForOneRetailer, fetchAllResponses,fetchAgentByPhone,fetchAgentByUserId,fetchFarmerByPhone, fetchAllForms, fetchAllAdmins, fetchFarmersForOneAgent, fetchAllResponsesForOneAgent, fetchAllFarmerProduce,fetchAllRequests, fetchAllRetailerProducts, fetchAllRetailers } from './group.action';
 import axios from 'axios';
 
 
@@ -41,56 +41,6 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
     //localStorage.setItem('userInfo',JSON.stringify({...res.data.user/*._doc*/,token:res.data.user.token}))
   
 
-//  if(res.data && res.data.user  && res.data.user._doc &&  res.data.user._doc.role &&  res.data.user._doc.role.includes("Retailer") ){
-//    //console.log("RETAILER DETECTED!!")
-//    dispatch(storeUserData({...res.data.user._doc}));
-//   dispatch(saveIsSuperAdmin(true))
-//   dispatch(saveIsAdmin(false))
-//   dispatch(saveIsAgent(false))
-//   dispatch(saveIsFarmer(false))
-//
-//
-//  //console.log("we have refetched all farmers")
-//
-//  //dispatch(fetchAllFarmers())
-//   axios.get(`${baseUrl}/api/retailers/`)
-//  .then((results) => {
-//
-//   // console.log("results from ffetching retailer by id--->",res.data.user)
-//    let userData  = {}
-//
-//  userData = results.data && results.data.filter((item)=>(item.retailer_user_id  === res.data.user._doc._id)) &&  results.data.filter((item)=>(item.retailer_user_id  === res.data.user._doc._id))[0]
-//  
-//      //console.log("results from ffetching retailer by id DATA--->",userData)
-//
-//   if (userData) {
-//    dispatch(fetchRetailerById(res.data.user && res.data.user._doc._id,res.data.user.token))
-//   // console.log("RETAILER ID FOR CHIVITA IS--->",userData._id )
-//    dispatch(fetchAllRetailerProducts(userData._id,res.data.user.token))
-//  dispatch(fetchAllFarmersForOneRetailer(userData._id,res.data.user.token/**'68483a428a24a409b009b5ce'*/)) //might not be ._id, it will be the _id from fetchRetailerById
-//  dispatch(fetchAllFarmerProduce(res.data.user.token))
-//  dispatch(fetchAllResponses(res.data.user.token));
-//  dispatch(fetchAllRequests(res.data.user.token));
-//  dispatch(fetchAllForms(res.data.user.token));
-//
-//    
-//     // return 
-//    
-//   } 
-// })
-//
-//
-// 
-//
-//  dispatch(fetchAllAdmins()).then(()=>{ 
-//  
-//  setLoading(false)
-// setTimeout(()=>{navigate('/dashboard/home')},3000)
-//})
-//
-//
-//
-//}
 
  
   if(res.data && res.data.user && res.data.user/*._doc*/ &&  res.data.user/*._doc*/.role &&  res.data.user/*._doc*/.role.includes("Agent")){
@@ -133,7 +83,14 @@ export const signin = (user, navigate, setLoading) => async (dispatch) => {
    
     dispatch(/*console.log("Hello")*/ fetchFarmersForOneAgent(res.data.user && res.data.user._id)).then(()=> 
     {
+if(res.data.user && (res.data.user.phone||res.data.user.phoneNumber||res.data.user.phone_number)){
     setTimeout( ()=>{dispatch(fetchAgentByPhone(res.data.user && (res.data.user.phone||res.data.user.phoneNumber||res.data.user.phone_number),navigate,setLoading,userData.type && userData.type)) }, 3000 )
+}
+else{
+  console.log("WE ARE FETCHING BY USER ID NOW, CUZ PHONE IS UNDEFINED--->",res.data.user)
+  setTimeout( ()=>{dispatch(fetchAgentByUserId(res.data.user && (res.data.user._id),navigate,setLoading,userData.type && userData.type)) }, 3000 )
+}
+  
   }
    )
   

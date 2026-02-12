@@ -1220,6 +1220,7 @@ export const fetchAgentByPhone = (phone,navigate,setLoading,agentType) => async 
   //dispatch(saveTotalPagesFarmers(0))
 
 
+
  axios.get(`${baseUrl}/api/agents/byphone?phone=${`${phone}`}`)
    .then((results) => {
 
@@ -1253,15 +1254,68 @@ export const fetchAgentByPhone = (phone,navigate,setLoading,agentType) => async 
        dispatch(loginSuccess(pageAgents));
        //dispatch(saveTotalPagesFarmers(pageAgents.pages))
        //console.log("No farmers returned, by phone!");
-       notifyErrorFxn("Please Check your number and try again!");
+       notifyErrorFxn("Please Check your number/email and try again!");
    }
  }).catch((error) => {
    //console.log("Error getting document of farmer by phone:", error);
-   notifyErrorFxn("Please Check your number and try again!");
+   notifyErrorFxn("Please Check your number/email and try again!");
    dispatch(isItLoading(false));
  });
 
 }
+
+
+export const fetchAgentByUserId = (phone,navigate,setLoading,agentType) => async (dispatch,getState) => {
+  
+  //dispatch(saveCurrentFarmersToDisplay([]));
+  //dispatch(saveTotalPagesFarmers(0))
+
+
+
+ axios.get(`${baseUrl}/api/agents/byid?id=${`${phone}`}`)
+   .then((results) => {
+
+    //console.log("results from ffetching agent by phone--->",results)
+    let pageAgents  = {}
+
+     pageAgents = results.data
+      
+      console.log("results from ffetching agent by phone DATA--->",pageAgents)
+
+   if (pageAgents) {
+     dispatch(isItLoading(false));
+     //console.log("Farmer with this number-->:", pageAgents);
+     dispatch(saveLoggedInAgent(pageAgents));
+       dispatch(loginSuccess(pageAgents))
+   
+      notifySuccessFxn("Logged In😊");
+
+      if(agentType && agentType.toLowerCase() === "retailer"){
+        navigate('/dashboard/all-retailers-one-agent', { replace: true });
+      }
+      else{
+        navigate('/dashboard/all-farmers-one-agent', { replace: true });
+      }
+     
+    
+     //dispatch(saveTotalPagesFarmers(pageAgents.pages))
+   } else {
+       dispatch(isItLoading(false));
+       dispatch(saveLoggedInAgent(pageAgents));
+       dispatch(loginSuccess(pageAgents));
+       //dispatch(saveTotalPagesFarmers(pageAgents.pages))
+       //console.log("No farmers returned, by phone!");
+       notifyErrorFxn("Please Check your number/email and try again!");
+   }
+ }).catch((error) => {
+   //console.log("Error getting document of farmer by phone:", error);
+   notifyErrorFxn("Please Check your number/email and try again!");
+   dispatch(isItLoading(false));
+ });
+
+}
+
+
 
 export const fetchFarmerByPhone = (phone,navigate,setLoading) => async (dispatch,getState) => {
   
