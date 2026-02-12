@@ -38,7 +38,9 @@ import { isItLoading, saveAllGroup, saveEmployeer,
   saveAllProductsForOneRetailer,
   saveAllAgents,
    saveAllRetailers,
+   clearAllRetailers,
    saveCurrentRetailersToDisplay,
+   clearCurrentRetailersToDisplay,
   saveFilteredFarmers,
   saveFilteredForms,
   clearFilteredFarmers,
@@ -2578,6 +2580,9 @@ export const deleteRetailer = (retailerObject) => async (dispatch,getState) => {
 
 export const fetchAllRetailers = (agentId) => async (dispatch) => {
  
+  dispatch(clearAllRetailers([]));
+  dispatch(clearCurrentRetailersToDisplay([]))
+
 
   axios.get(`${baseUrl}/api/retailers?agentId=${agentId}`)
     .then((results) => {

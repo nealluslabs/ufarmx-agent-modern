@@ -185,6 +185,10 @@ saveCurrentRetailersToDisplay: (state, action) => {
   state.currentRetailersToDisplay = action.payload;
 },
 
+clearCurrentRetailersToDisplay: (state, action) => {
+  state.currentRetailersToDisplay = [];
+},
+
 clearCurrentFarmersForThisAgent: (state, action) => {
   state.currentFarmersForThisAgent = [];
  
@@ -353,7 +357,9 @@ saveAllRetailersForThisAgent: (state, action) => {
 saveAllRetailers: (state, action) => {
   state.allRetailers = action.payload;
 },
-
+clearAllRetailers: (state, action) => {
+  state.allRetailers = action.payload;
+},
   saveFilteredFarmers: (state, action) => {
     state.filteredFarmers = action.payload;
 },
@@ -539,6 +545,7 @@ export const {
  clearAllFarmersForThisAgent,
  saveAllRetailersForThisAgent,
  saveAllRetailers,
+ clearAllRetailers,
  saveFilteredFarmers,
  clearFilteredFarmers,
  saveFilteredFarmersForThisAgent,
@@ -563,6 +570,7 @@ export const {
  clearRetailersForThisAgent,
  saveCurrentResponsesToDisplay,
  saveCurrentRetailersToDisplay,
+ clearCurrentRetailersToDisplay,
  saveCurrentResponsesToDisplayAdmin,
  clearAllResponsesToDisplayAdmin,
  clearCurrentResponsesToDisplay,
