@@ -341,6 +341,10 @@ saveAllSuperAdmins: (state, action) => {
   saveAllFarmersForThisAgent: (state, action) => {
     state.allFarmersForThisAgent = action.payload;
 },
+clearAllFarmersForThisAgent: (state, action) => {
+  state.allFarmersForThisAgent = action.payload;
+},
+
 
 saveAllRetailersForThisAgent: (state, action) => {
   state.allRetailersForThisAgent = action.payload;
@@ -364,6 +368,10 @@ clearFilteredFarmers: (state, action) => {
 
 saveFilteredFarmersForThisAgent: (state, action) => {
   state.filteredFarmersForThisAgent = action.payload;
+},
+
+clearFilteredFarmersForThisAgent: (state, action) => {
+  state.filteredFarmersForThisAgent = [];
 },
 
 saveFilteredRetailersForThisAgent: (state, action) => {
@@ -528,11 +536,13 @@ export const {
  saveAllAdmins,
  saveAllSuperAdmins,
  saveAllFarmersForThisAgent,
+ clearAllFarmersForThisAgent,
  saveAllRetailersForThisAgent,
  saveAllRetailers,
  saveFilteredFarmers,
  clearFilteredFarmers,
  saveFilteredFarmersForThisAgent,
+ clearFilteredFarmersForThisAgent,
  saveFilteredRetailersForThisAgent,
  saveAllResponses,
  saveAllResponsesAdmin,

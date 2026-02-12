@@ -31,6 +31,7 @@ import { isItLoading, saveAllGroup, saveEmployeer,
   saveAllFarmers,
   saveAllRequests,
   saveAllFarmersForThisAgent,
+  clearAllFarmersForThisAgent,
   saveAllResponses,
   saveAllResponsesAdmin,
   saveAllForms,
@@ -43,6 +44,7 @@ import { isItLoading, saveAllGroup, saveEmployeer,
   clearFilteredFarmers,
 
   saveFilteredFarmersForThisAgent,
+  clearFilteredFarmersForThisAgent,
   saveFilteredResponses,
   saveFilteredResponsesAdmin,
 
@@ -1456,7 +1458,8 @@ export const fetchFarmersForOneAgent = (agentId) => async (dispatch,getState) =>
   
 
 
-  
+  dispatch(clearAllFarmersForThisAgent([]));
+  dispatch(clearFilteredFarmersForThisAgent([]));
  await dispatch(clearCurrentFarmersForThisAgent([]));
  await dispatch(saveTotalPagesFarmersForThisAgent(0))
 
@@ -1467,6 +1470,7 @@ export const fetchFarmersForOneAgent = (agentId) => async (dispatch,getState) =>
  await axios.get(`${baseUrl}/api/farmers/oneagent?agentId=${agentId}`)
    .then((results) => {
      const pageFarmers = results.data
+
   
       console.log("results from ALLLLLLLLLL of farmers FOR THIS AGENT-->",pageFarmers)
 
