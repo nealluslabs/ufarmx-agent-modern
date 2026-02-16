@@ -8,7 +8,6 @@ import { StyledChart } from './components/chart';
 import './index.css';
 import { ToastContainer } from 'react-toastify';
 import OfflineStatusBanner from './components/offline/OfflineStatusBanner';
-// import InstallAppPrompt from './components/offline/InstallAppPrompt';
 
 // ----------------------------------------------------------------------
 
@@ -28,7 +27,6 @@ export default function App() {
           />
       <ScrollToTop />
       <OfflineStatusBanner />
-      {/* <InstallAppPrompt /> */}
       <StyledChart />
       <Router />
     </ThemeProvider>

@@ -44,6 +44,7 @@ import {
   addNewRetailer,
 } from 'src/redux/actions/group.action';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
+import { fileToDataUrl } from 'src/offline/outboxSync';
 import { makeStyles } from '@mui/styles/node';
 import { FaCamera, FaRegCheckCircle } from 'react-icons/fa';
 
@@ -260,13 +261,8 @@ would_you_be_interested_in_organic_farming_and_training:"yes"
       // ACL: 'public-read' // Uncomment if your bucket requires this for public access
     };
 
-    try {
-      const data = await s3.upload(params).promise();
-      return data.Location; // Returns the public URL of the file
-    } catch (error) {
-      console.error('S3 Upload Error:', error);
-      throw error;
-    }
+    const data = await s3.upload(params).promise();
+    return data.Location; // Returns the public URL of the file
   };
 
   const [docs, setDocs] = useState({
@@ -595,6 +591,20 @@ if(allOptionalFieldsFilled && missingFields.length === 0){ //ALL FIELDS INCLUDIN
 
 
       try {
+        if (!navigator.onLine) {
+          const dataUrl = await fileToDataUrl(selectedFile);
+          setFormData((prev) => ({
+            ...prev,
+            [docType]: dataUrl,
+          }));
+          setDocs((prev) => ({
+            ...prev,
+            [docType]: { ...prev[docType], loading: false },
+          }));
+          notifySuccessFxn(`${docType} saved offline and will upload on sync.`);
+          return;
+        }
+
         const url = await uploadToS3(selectedFile);
         console.log(`${docType} uploaded successfully:`, url);
 
@@ -608,7 +618,16 @@ if(allOptionalFieldsFilled && missingFields.length === 0){ //ALL FIELDS INCLUDIN
           [docType]: { ...prev[docType], loading: false },
         }));
       } catch (error) {
-        alert(`Failed to upload ${docType}. Please try again.`);
+        try {
+          const dataUrl = await fileToDataUrl(selectedFile);
+          setFormData((prev) => ({
+            ...prev,
+            [docType]: dataUrl,
+          }));
+          notifySuccessFxn(`${docType} saved offline and will upload on sync.`);
+        } catch (offlineSaveError) {
+          notifyErrorFxn(`Failed to cache ${docType} for offline use.`);
+        }
         setDocs((prev) => ({
           ...prev,
           [docType]: { ...prev[docType], loading: false },
@@ -745,7 +764,16 @@ if(allOptionalFieldsFilled && missingFields.length === 0){ //ALL FIELDS INCLUDIN
       })
       .catch((err) => {
         setLoading(false);
-        console.log('Submission failed', err);
+        setRetailerScoreLoading(false);
+
+        // Offline-first fallback: don't block onboarding if score API is unreachable.
+        dispatch(saveRetailerScoreRedux(''));
+        // notifySuccessFxn(
+        //   "You're offline. Retailer score will be finalized when connectivity is restored."
+        // );
+        setStep1(false);
+        setStep2(true);
+        setStep3(false);
       });
   };
 
@@ -2379,7 +2407,11 @@ if(allOptionalFieldsFilled && missingFields.length === 0){ //ALL FIELDS INCLUDIN
                 </LoadingButton>
 
                 <LoadingButton
-                  onClick={() => addRetailer()}
+                  onClick={() => {
+                    addRetailer()
+                    navigate('/dashboard/all-retailers-one-agent');
+                  }
+                  }
                   size="large"
                   variant="contained"
                   loading={loading}

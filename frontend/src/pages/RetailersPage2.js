@@ -122,7 +122,7 @@ export default function RetailersPage2() {
     console.log('WHAT WE ARE PRESENTING FOR RETAILERS-->', sortedRetailers);
     console.log('ALL Retailers-->', sortedRetailers);
   }, [allRetailers]);
-
+console.log('all retailers ============>>>>>>>>>>>-->', allRetailers); 
   const chartData = [
     { name: 'Aug 2025', 'Active Retailers': 3, 'Loans Generated': 0 },
     { name: 'Sept 2025', 'Active Retailers': 4, 'Loans Generated': 0 },
