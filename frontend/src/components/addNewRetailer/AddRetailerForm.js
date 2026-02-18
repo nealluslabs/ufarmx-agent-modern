@@ -1091,49 +1091,34 @@ if(allOptionalFieldsFilled && missingFields.length === 0){ //ALL FIELDS INCLUDIN
                         <FormHelperText style={{color:"red"}}>This field is required</FormHelperText>
                       )}
                       </FormControl>
-                      <FormControl
+                      <TextField
+                        label="Date of Birth"
+                        type="date"
+                        name="age"
+                        value={formData.age}
+                        inputProps={{ tabIndex: getTabIndex(2, 0) }}
+                        onChange={handleChange}
+                        error={missingFieldKeys.includes('age')}
+                        helperText={missingFieldKeys.includes('age') ? 'This field is required' : ''}
                         sx={{
+                          color: 'black',
                           width: '100%',
                           maxWidth: { xs: '20rem', sm: '70%', md: '80%', lg: '100%' },
                         }}
-                        variant="outlined"
-                      >
-                        <InputLabel id="age-label" shrink>
-                          Age
-                        </InputLabel>
-                        <Select
-                          labelId="age-label"
-                          id="age-select"
-                          value={formData.age}
-                          inputProps={{ tabIndex: getTabIndex(2, 0) }}
-                          onChange={handleChange}
-                          label="Age"
-                          name="age"
-                          error={missingFieldKeys.includes('age')}
-                          helperText={
-                            missingFieldKeys.includes('age') ? 'This field is required' : ''
-                          }
-                          sx={{
-                            color: 'black',
-                            width: { xs: '20rem', sm: '70%', md: '80%', lg: '100%' },
+                        InputLabelProps={{ shrink: true }}
+                        InputProps={{
+                          style: {
                             height: '3rem',
-                            backgroundColor: '#F9FAFB',
                             paddingLeft: '1rem',
                             color: 'gray',
+                            backgroundColor: '#F9FAFB',
                             paddingRight: '1rem',
-                          }}
-                        >
-                          {ageOptions.map((ageValue) => (
-                            <MenuItem key={ageValue} value={ageValue}>
-                              {ageValue}
-                            </MenuItem>
-                          ))}
-                        </Select>
-
-                        {missingFieldKeys.includes('age') && (
-                        <FormHelperText style={{color:"red"}}>This field is required</FormHelperText>
-                      )}
-                      </FormControl>
+                          },
+                        }}
+                        variant="outlined"
+                        fullWidth
+                        margin="normal"
+                      />
                       <FormControl
                         sx={{
                           width: '100%',

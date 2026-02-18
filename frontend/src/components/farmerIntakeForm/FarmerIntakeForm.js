@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
-import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar, FormControl, MenuItem, Select, Typography, Divider, CardMedia, FormControlLabel, RadioGroup, Radio, Chip, Paper, Box, FormGroup, InputLabel, useMediaQuery } from '@mui/material';
+import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, Grid, Button, Avatar, FormControl, MenuItem, Select, Typography, Divider, CardMedia, FormControlLabel, RadioGroup, Radio, Chip, Paper, Box, FormGroup, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 // components
@@ -571,23 +571,18 @@ else{
           margin="normal"
         />
 
- 
-<InputLabel id="age-label">Age</InputLabel>
-  <Select
-    labelId="age-label"
-    id="age-select"
-    value={age}
-    onChange={(e) => setAge(e.target.value)}
-    label="Age"
-    sx={{ color: 'black',width:{xs:"20rem",sm:"70%",md:"80%",lg:"100%"},height:"4rem", backgroundColor: "#F9FAFB", paddingLeft: '1rem', color: 'gray', paddingRight: '1rem'  }}
-   
-  >
-    {ageOptions.map((ageValue) => (
-      <MenuItem key={ageValue} value={ageValue}>
-        {ageValue} 
-      </MenuItem>
-    ))}
-  </Select>
+       <TextField
+          label={'Date of Birth'}
+          type="date"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+          sx={{ color: 'black',width:{xs:"20rem",sm:"70%",md:"80%",lg:"100%"},height:"4rem" }}
+          InputLabelProps={{ shrink: true }}
+          InputProps={{
+            style: { paddingLeft: '1rem', color: 'black',backgroundColor:"#F9FAFB",height:"4rem" },
+          }}
+          variant="outlined"
+        />
 
 
       
@@ -1820,7 +1815,7 @@ else{
 
           <div style={{display:"inline-flex"}}>Full Name:&nbsp;{' '}{' '} <span style={{fontWeight:"bold"}}>{firstName + " " + otherNames + " " + lastName}</span></div>
 
-          <div style={{display:"inline-flex"}}>Age:&nbsp;{' '}{' '} <span style={{fontWeight:"bold"}}>{age}</span></div>
+          <div style={{display:"inline-flex"}}>Date of Birth:&nbsp;{' '}{' '} <span style={{fontWeight:"bold"}}>{age}</span></div>
 
 
             <div style={{display:"inline-flex"}}>No of Spouse:&nbsp;{' '}{' '} <span style={{fontWeight:"bold"}}>{noOfSpouse}</span></div>
