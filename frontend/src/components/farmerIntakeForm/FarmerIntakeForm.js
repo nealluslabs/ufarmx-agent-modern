@@ -1572,7 +1572,7 @@ else{
 
 
 
-<Grid item  xs={11} sm={10} style={{display:"flex",justifyContent:"flex-start",alignItems:"flex-start"}}>
+<Grid item  xs={12} sm={10} style={{display:"flex",justifyContent:"flex-start",alignItems:"flex-start"}}>
    <TextField
           key={"Challenges"}
           label={'Challenges'}
@@ -1773,9 +1773,9 @@ else{
              <FormControl
                style={{
                  position: "relative",
-                 left: "-0rem",
+                //  left: "-0rem",
                  top: "-0rem",
-                 scale: "0.9",
+                //  scale: "0.9",
                  width:"100%"
                }}
              >
@@ -1804,7 +1804,7 @@ else{
                        label={'Describe secondary trade or job'}
                        value={offFarmIncomeDetails}
                        onChange={(e)=>{setOffFarmIncomeDetails(e.target.value)}}
-                        sx={{ ...mobileFieldWidthSx, color:'black', width:{ xs: '100%', sm: '28rem' }}}
+                        sx={{ ...mobileFieldWidthSx, color:'black', width:{ xs: '100%', sm: '100%' }}}
                        InputLabelProps={{ shrink: true }}
                        InputProps={{
                          style: { height:"4rem", paddingLeft: '1rem', color: 'black',backgroundColor:"#F9FAFB" },
