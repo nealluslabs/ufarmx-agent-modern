@@ -831,7 +831,7 @@ else{
     height: '4rem',
     borderRadius: '0.1rem',
     paddingLeft: '3rem',
-    color: 'black',
+    color: 'black', 
   }}
   buttonStyle={{
     backgroundColor: "#FFFFFF", // Match the select button background
