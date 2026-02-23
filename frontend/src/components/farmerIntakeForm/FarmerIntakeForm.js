@@ -400,6 +400,22 @@ const getGeolocation = () =>{
   const submitResponse = (updatedFields,photo) =>{
     //console.log("PROCESS BEGUN--->")
     setLoading(true)
+
+    const {
+     offFarmIncome,
+     offFarmIncomeDetails,
+     farmerGroupMembershipDetails,
+     farmerGroupMembership,
+      ...rest
+    } = updatedFields.responseObject
+
+    const hasEmptyField = rest ?Object.values(rest).some(
+      (value) =>
+        value === null ||
+        value === undefined ||
+        value === "" ||
+        (typeof value === "string" && value.trim() === "")
+    ):false
    
     if(gpsLocation.longitude === null ||gpsLocation.latitude === null ){
       notifyErrorFxn("Please Fetch Co-ordinates, before Submitting!")
@@ -411,6 +427,16 @@ const getGeolocation = () =>{
         setLoading(false)
        return
      }
+    /* else if(hasEmptyField){
+
+      //please loop through and make sure no values of the updated fields object is empty
+
+      notifyErrorFxn("Please make sure to fill in all fields before submitting!")
+      setLoading(false)
+      return
+     }*/
+     
+
 else{
    dispatch(submitNewResponseIntake(updatedFields,photo,setStep1,setStep2,setStep3,stateSetters))
 }
@@ -1728,7 +1754,7 @@ else{
         
           labelId="hi-label"
           id="hi"
-          value={whereDoYouSell}
+          value={salesChannel}
           label="Sales Channel"
           displayEmpty
           renderValue={(selected) => {
@@ -1739,7 +1765,7 @@ else{
             return selected;
           }}
           onChange={(event) => {
-            setWhereDoYouSell(event.target.value);
+            setSalesChannel(event.target.value);
           }}
         >
        
