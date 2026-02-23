@@ -300,7 +300,7 @@ const getGeolocation = () =>{
      cropsLivestock,
      farmSize,
      farmSizeUnit,
-     farmLocation,
+     //farmLocation,
      location:`${gpsLocation && gpsLocation.latitude},${gpsLocation && gpsLocation.longitude}`,
      whereDoYouSell,
      market:whereDoYouSell,
@@ -401,22 +401,36 @@ const getGeolocation = () =>{
     //console.log("PROCESS BEGUN--->")
     setLoading(true)
 
+ 
+
     const {
      offFarmIncome,
      offFarmIncomeDetails,
      farmerGroupMembershipDetails,
-     farmerGroupMembership,
+     farmerGroups,
       ...rest
     } = updatedFields.responseObject
 
-    const hasEmptyField = rest ?Object.values(rest).some(
-      (value) =>
+
+    Object.entries(rest).forEach(([key, value]) => {
+      if (
         value === null ||
         value === undefined ||
-        value === "" ||
         (typeof value === "string" && value.trim() === "")
-    ):false
-   
+      ) {
+        console.log("Empty field IS --->:", key, value);
+      }
+    });
+
+    const hasEmptyField = Object.entries(rest).some(([key, value]) => {
+      if (value === null || value === undefined) return true;
+    
+      if (typeof value === "string" && value.trim() === "") return true;
+    
+      return false;
+    });
+
+
     if(gpsLocation.longitude === null ||gpsLocation.latitude === null ){
       notifyErrorFxn("Please Fetch Co-ordinates, before Submitting!")
       setLoading(false)   
@@ -427,14 +441,14 @@ const getGeolocation = () =>{
         setLoading(false)
        return
      }
-    /* else if(hasEmptyField){
+    else if(hasEmptyField){
 
       //please loop through and make sure no values of the updated fields object is empty
 
       notifyErrorFxn("Please make sure to fill in all fields before submitting!")
       setLoading(false)
       return
-     }*/
+     }
      
 
 else{
