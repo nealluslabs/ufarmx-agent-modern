@@ -133,6 +133,9 @@ console.log(" last 3 responses is --->",responses)
 //@access Private/Admin
 const createResponse = asyncHandler(async (req,res)=>{
   res.header("Access-Control-Allow-Origin","*")
+
+
+  const newResponseObject = {...req.body.responseObject,addedByUserId:new mongoose.Types.ObjectId(req.body.responseObject && req.body.responseObject.addedByUserId)}
    const response = new Response({
     form_id:new mongoose.Types.ObjectId(req.body.form_id),
      agent_user_id:req.body.agent_user_id? new mongoose.Types.ObjectId(req.body.agent_user_id):null,
@@ -140,9 +143,9 @@ const createResponse = asyncHandler(async (req,res)=>{
      admin_user_id:new mongoose.Types.ObjectId(req.body.admin_user_id),
      last_updated_by:new mongoose.Types.ObjectId(req.body.last_updated_by),
      is_deleted:req.body.is_deleted,
-     responseObject:req.body.responseObject,
-     addedByUserId:new mongoose.Types.ObjectId(req.body.responseObject && req.body.responseObject.addedByUserId),
-    
+     responseObject:newResponseObject,
+    // addedByUserId:new mongoose.Types.ObjectId(req.body.responseObject && req.body.responseObject.addedByUserId),
+     
    })
 
    const createdResponse = await response.save()
@@ -166,7 +169,7 @@ const createResponse = asyncHandler(async (req,res)=>{
          ...req.body.responseObject,
          addedByUserId:new mongoose.Types.ObjectId(req.body.responseObject && req.body.responseObject.addedByUserId),
          OriginalResponseId: new mongoose.Types.ObjectId(createdResponse._id),
-  
+        
        }) 
 
       /* const createdFarmer =*/ await farmer.save()
