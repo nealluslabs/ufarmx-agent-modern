@@ -88,7 +88,9 @@ export default function FarmerIntakeForm() {
 
 
   const { user } = useSelector((state) => state.auth);
- 
+ console.log("WHAT IS USER!--->",user)
+
+
   useEffect(()=>{
 
    if(!user ){
@@ -290,6 +292,9 @@ const getGeolocation = () =>{
      otherNames,
      gender,
      age,
+     addedBy:user && ((user.firstName && user.firstName) + " "   && (user.firstName  && user.lastName )),
+      addedByUserId:user && (user.user_id),
+      medium:"agent",
      maritalStatus,
      noOfChildren,
      noOfSpouse,

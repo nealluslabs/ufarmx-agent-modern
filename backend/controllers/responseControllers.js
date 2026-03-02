@@ -141,6 +141,7 @@ const createResponse = asyncHandler(async (req,res)=>{
      last_updated_by:new mongoose.Types.ObjectId(req.body.last_updated_by),
      is_deleted:req.body.is_deleted,
      responseObject:req.body.responseObject,
+     addedByUserId:new mongoose.Types.ObjectId(req.body.responseObject && req.body.responseObject.addedByUserId),
     
    })
 
@@ -163,6 +164,7 @@ const createResponse = asyncHandler(async (req,res)=>{
          last_updated_by:new mongoose.Types.ObjectId(req.body.last_updated_by),
          is_deleted:req.body.is_deleted,
          ...req.body.responseObject,
+         addedByUserId:new mongoose.Types.ObjectId(req.body.responseObject && req.body.responseObject.addedByUserId),
          OriginalResponseId: new mongoose.Types.ObjectId(createdResponse._id),
   
        }) 
@@ -178,6 +180,7 @@ const createResponse = asyncHandler(async (req,res)=>{
          last_updated_by:new mongoose.Types.ObjectId(req.body.last_updated_by),
          is_deleted:req.body.is_deleted,
          ...req.body.responseObject,
+         addedByUserId:new mongoose.Types.ObjectId(req.body.responseObject && req.body.responseObject.addedByUserId),
          OriginalResponseId: new mongoose.Types.ObjectId(createdResponse._id),
   
        }) 
